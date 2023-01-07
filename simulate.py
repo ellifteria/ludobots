@@ -1,3 +1,7 @@
+import os
+
+os.system("python generate.py")
+
 import pybullet as p
 import pybullet_data
 import time
