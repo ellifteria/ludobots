@@ -14,6 +14,8 @@ p.setGravity(0,0,-9.8)
 
 planeID = p.loadURDF("plane.urdf")
 
+robotID = p.loadURDF("body.urdf")
+
 p.loadSDF("box.sdf")
 
 for i in range(1000):
