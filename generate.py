@@ -22,31 +22,15 @@ def create_robot():
 
     pyrosim.Start_URDF("body.urdf")
 
-    pyrosim.Send_Cube(name="link0", pos=[0, 0, 0.5], size=[l, w, h])
+    pyrosim.Send_Cube(name="torso", pos=[0, 0, 1.5], size=[l, w, h])
 
-    pyrosim.Send_Joint(name="link0_link1", parent="link0", child="link1", type="revolute", position=[0, 0, 1])
+    pyrosim.Send_Joint(name="torso_frontleg", parent="torso", child="frontleg", type="revolute", position=[0, -0.5, 1])
 
-    pyrosim.Send_Cube(name="link1", pos=[0, 0, 0.5], size=[l, w, h])
+    pyrosim.Send_Cube(name="frontleg", pos=[0, -0.5, -0.5], size=[l, w, h])
 
-    pyrosim.Send_Joint(name="link1_link2", parent="link1", child="link2", type="revolute", position=[0, 0, 1])
+    pyrosim.Send_Joint(name="torso_backleg", parent="torso", child="backleg", type="revolute", position=[0, 0.5, 1])
 
-    pyrosim.Send_Cube(name="link2", pos=[0, 0, 0.5], size=[l, w, h])
-
-    pyrosim.Send_Joint(name="link2_link3", parent="link2", child="link3", type="revolute", position=[0, 0.5, 0.5])
-
-    pyrosim.Send_Cube(name="link3", pos=[0, 0.5, 0], size=[l, w, h])
-
-    pyrosim.Send_Joint(name="link3_link4", parent="link3", child="link4", type="revolute", position=[0, 1, 0])
-
-    pyrosim.Send_Cube(name="link4", pos=[0, 0.5, 0], size=[l, w, h])
-
-    pyrosim.Send_Joint(name="link4_link5", parent="link4", child="link5", type="revolute", position=[0, 0.5, -0.5])
-
-    pyrosim.Send_Cube(name="link5", pos=[0, 0, -0.5], size=[l, w, h])
-
-    pyrosim.Send_Joint(name="link5_link6", parent="link5", child="link6", type="revolute", position=[0, 0, -1])
-
-    pyrosim.Send_Cube(name="link6", pos=[0, 0, -0.5], size=[l, w, h])
+    pyrosim.Send_Cube(name="backleg", pos=[0, 0.5, -0.5], size=[l, w, h])
 
     pyrosim.End()
 
