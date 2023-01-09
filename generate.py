@@ -32,13 +32,13 @@ def create_robot():
 
     pyrosim.Send_Cube(name="torso", pos=[0, 0, 1.5], size=[l, w, h])
 
-    pyrosim.Send_Joint(name="torso_frontleg", parent="torso", child="frontleg", type="revolute", position=[0, -0.5, 1], axis=[1, 0, 0])
+    pyrosim.Send_Joint(name="torso_frontleg", parent="torso", child="frontleg", type="revolute", position=[-0.5, 0, 1], axis=[0, 1, 0])
 
-    pyrosim.Send_Cube(name="frontleg", pos=[0, -0.5, -0.5], size=[l, w, h])
+    pyrosim.Send_Cube(name="frontleg", pos=[-0.5, 0, -0.5], size=[l, w, h])
 
-    pyrosim.Send_Joint(name="torso_backleg", parent="torso", child="backleg", type="revolute", position=[0, 0.5, 1], axis=[1, 0, 0])
+    pyrosim.Send_Joint(name="torso_backleg", parent="torso", child="backleg", type="revolute", position=[0.5, 0, 1], axis=[0, 1, 0])
 
-    pyrosim.Send_Cube(name="backleg", pos=[0, 0.5, -0.5], size=[l, w, h])
+    pyrosim.Send_Cube(name="backleg", pos=[0.5, 0, -0.5], size=[l, w, h])
 
     pyrosim.End()
 
