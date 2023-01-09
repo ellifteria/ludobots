@@ -22,15 +22,13 @@ pblt.loadSDF("box.sdf")
 
 pyrosim.Prepare_To_Simulate(robot_id)
 
-for i in range(1000):
+while True:
     pblt.stepSimulation()
-
 
     backleg_touch = pyrosim.Get_Touch_Sensor_Value_For_Link("backleg")
 
     print(backleg_touch)
 
     time.sleep(1/60)
-    print(i)
 
 pblt.disconnect()
