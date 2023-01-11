@@ -32,16 +32,16 @@ for i in range(num_iterations):
         bodyIndex= robot_id,
         jointName= "torso_backleg",
         controlMode= pblt.POSITION_CONTROL,
-        targetPosition= np.pi/6,
-        maxForce= 500
+        targetPosition= np.pi*np.random.random()-np.pi/2,
+        maxForce= 25
     )
 
     pyrosim.Set_Motor_For_Joint(
         bodyIndex= robot_id,
         jointName= "torso_frontleg",
         controlMode= pblt.POSITION_CONTROL,
-        targetPosition= -np.pi/6,
-        maxForce= 500
+        targetPosition= np.pi*np.random.random()-np.pi/2,
+        maxForce= 25
     )
 
     pblt.stepSimulation()
