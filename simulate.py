@@ -25,6 +25,9 @@ num_iterations = 500
 backleg_sensor_vals = np.zeros(num_iterations)
 frontleg_sensor_vals = np.zeros(num_iterations)
 
+front_motor_vals = np.tile(np.sin(np.linspace(0, np.pi, int(num_iterations/10))), 10)
+back_motor_vals = np.tile(np.sin(np.linspace(0, np.pi, int(num_iterations/10))), 10)
+
 pyrosim.Prepare_To_Simulate(robot_id)
 
 for i in range(num_iterations):
@@ -32,16 +35,16 @@ for i in range(num_iterations):
         bodyIndex= robot_id,
         jointName= "torso_backleg",
         controlMode= pblt.POSITION_CONTROL,
-        targetPosition= np.pi*np.random.random()-np.pi/2,
-        maxForce= 25
+        targetPosition= front_motor_vals[i],
+        maxForce= 20
     )
 
     pyrosim.Set_Motor_For_Joint(
         bodyIndex= robot_id,
         jointName= "torso_frontleg",
         controlMode= pblt.POSITION_CONTROL,
-        targetPosition= np.pi*np.random.random()-np.pi/2,
-        maxForce= 25
+        targetPosition= back_motor_vals[i],
+        maxForce= 20
     )
 
     pblt.stepSimulation()
