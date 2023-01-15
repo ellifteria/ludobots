@@ -1,4 +1,8 @@
+import pybullet as pblt
+
 class World:
 
     def __init__(self):
-        pass
+        self.plane_id = pblt.loadURDF("plane.urdf")
+
+        pblt.loadSDF("box.sdf")

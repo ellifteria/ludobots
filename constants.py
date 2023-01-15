@@ -9,3 +9,5 @@ front_frequency = 5
 back_amplitude = np.pi/4
 back_phase_offset = np.pi/4
 back_frequency = 10
+
+sleep_time = 0.5/60
