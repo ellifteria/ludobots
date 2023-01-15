@@ -1,13 +1,5 @@
 import pyrosim_modded.pyrosim_modded as pyrosim
 
-import fileinput
-
-def replace_txt(filename, txt_to_replace, new_txt):
-
-    with fileinput.FileInput(filename, inplace=True, backup='.bak') as file:
-        for line in file:
-            print(line.replace(txt_to_replace, new_txt), end='')
-
 def create_world():
     l = 1
     w = 1
@@ -23,7 +15,7 @@ def create_world():
 
     pyrosim.End()
 
-def create_robot():
+def generate_body():
     l = 1
     w = 1
     h = 1
@@ -42,8 +34,14 @@ def create_robot():
 
     pyrosim.End()
 
-    # replace_txt("body.urdf", '<axis xyz="0 1 0"/>', '<axis xyz="1 0 0"/>')
+def generate_brain():
+    pyrosim.Start_NeuralNetwork("brain.nndf")
+    pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "torso")
+    pyrosim.End()    
 
+def create_robot():
+    generate_body()
+    generate_brain()
 
 def main():
     create_world()
