@@ -44,6 +44,7 @@ class Simulation:
             
             pblt.stepSimulation()
             self.robot.sense(iteration)
+            self.robot.act(iteration)
             time.sleep(c.sleep_time)
             print(iteration)
 

@@ -1,5 +1,6 @@
 import pybullet as pblt
 from sensor import Sensor
+from motor import Motor
 import pyrosim_modded.pyrosim_modded as pyrosim
 
 class Robot:
@@ -20,9 +21,18 @@ class Robot:
     def prepare_to_act(self):
         self.motors = {}
         for joint_name in pyrosim.jointNamesToIndices:
-            self.motors[joint_name] = Sensor(joint_name)
+            self.motors[joint_name] = Motor(joint_name)
 
     def sense(self, iteration):
         for sensor in self.sensors:
             self.sensors[sensor].get_value(iteration)
+
+    def act(self, iteration):
+        for motor in self.motors:
+            self.motors[motor].set_value(self, iteration)
+    def save_data(self):
+        for sensor in self.sensors:
+            self.sensors[sensor].save_values()
+        for motor in self.motors:
+            self.motors[motor].save_values()
 
