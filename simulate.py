@@ -9,6 +9,8 @@ import numpy as np
 
 import pyrosim_modded.pyrosim_modded as pyrosim
 
+import constants as c
+
 physicsClient = pblt.connect(pblt.GUI)
 
 pblt.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -21,20 +23,11 @@ robot_id = pblt.loadURDF("body.urdf")
 
 pblt.loadSDF("box.sdf")
 
-num_iterations = 1000
-backleg_sensor_vals = np.zeros(num_iterations)
-frontleg_sensor_vals = np.zeros(num_iterations)
+backleg_sensor_vals = np.zeros(c.num_iterations)
+frontleg_sensor_vals = np.zeros(c.num_iterations)
 
-front_amplitude = np.pi/4
-front_phase_offset = 0
-front_frequency = 5
-
-back_amplitude = np.pi/4
-back_phase_offset = np.pi/4
-back_frequency = 10
-
-front_motor_vals = front_amplitude*np.sin(front_phase_offset + front_frequency*np.linspace(0, 2*np.pi, num_iterations))
-back_motor_vals = back_amplitude*np.sin(back_phase_offset + back_frequency*np.linspace(0, 2*np.pi, num_iterations))
+front_motor_vals = c.front_amplitude*np.sin(c.front_phase_offset + c.front_frequency*np.linspace(0, 2*np.pi, c.num_iterations))
+back_motor_vals = c.back_amplitude*np.sin(c.back_phase_offset + c.back_frequency*np.linspace(0, 2*np.pi, c.num_iterations))
 
 with open("./data/backleg_motor_vals.npy", 'wb') as f:
     np.save(f, back_motor_vals)
@@ -45,7 +38,7 @@ with open("./data/frontleg_motor_vals.npy", 'wb') as f:
 
 pyrosim.Prepare_To_Simulate(robot_id)
 
-for i in range(num_iterations):
+for i in range(c.num_iterations):
     pyrosim.Set_Motor_For_Joint(
         bodyIndex= robot_id,
         jointName= "torso_backleg",
