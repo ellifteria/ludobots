@@ -21,12 +21,27 @@ robot_id = pblt.loadURDF("body.urdf")
 
 pblt.loadSDF("box.sdf")
 
-num_iterations = 500
+num_iterations = 1000
 backleg_sensor_vals = np.zeros(num_iterations)
 frontleg_sensor_vals = np.zeros(num_iterations)
 
-front_motor_vals = np.tile(np.sin(np.linspace(0, np.pi, int(num_iterations/10))), 10)
-back_motor_vals = np.tile(np.sin(np.linspace(0, np.pi, int(num_iterations/10))), 10)
+front_amplitude = np.pi/4
+front_phase_offset = 0
+front_frequency = 5
+
+back_amplitude = np.pi/4
+back_phase_offset = np.pi/4
+back_frequency = 10
+
+front_motor_vals = front_amplitude*np.sin(front_phase_offset + front_frequency*np.linspace(0, 2*np.pi, num_iterations))
+back_motor_vals = back_amplitude*np.sin(back_phase_offset + back_frequency*np.linspace(0, 2*np.pi, num_iterations))
+
+with open("./data/backleg_motor_vals.npy", 'wb') as f:
+    np.save(f, back_motor_vals)
+    f.close()
+with open("./data/frontleg_motor_vals.npy", 'wb') as f:
+    np.save(f, front_motor_vals)
+    f.close()
 
 pyrosim.Prepare_To_Simulate(robot_id)
 
@@ -36,7 +51,7 @@ for i in range(num_iterations):
         jointName= "torso_backleg",
         controlMode= pblt.POSITION_CONTROL,
         targetPosition= front_motor_vals[i],
-        maxForce= 20
+        maxForce= 15
     )
 
     pyrosim.Set_Motor_For_Joint(
@@ -44,7 +59,7 @@ for i in range(num_iterations):
         jointName= "torso_frontleg",
         controlMode= pblt.POSITION_CONTROL,
         targetPosition= back_motor_vals[i],
-        maxForce= 20
+        maxForce= 15
     )
 
     pblt.stepSimulation()
