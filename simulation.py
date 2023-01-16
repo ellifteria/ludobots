@@ -22,8 +22,8 @@ class Simulation:
             pblt.stepSimulation()
             self.robot.sense(iteration)
             self.robot.act(iteration)
+            self.robot.think()
             time.sleep(c.sleep_time)
-            print(iteration)
 
     def __del__(self):
         pblt.disconnect()

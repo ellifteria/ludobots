@@ -37,6 +37,8 @@ def generate_body():
 def generate_brain():
     pyrosim.Start_NeuralNetwork("brain.nndf")
     pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "torso")
+    pyrosim.Send_Sensor_Neuron(name = 1, linkName = "backleg")
+    pyrosim.Send_Sensor_Neuron(name = 2, linkName = "frontleg")
     pyrosim.End()    
 
 def create_robot():
