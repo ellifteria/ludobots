@@ -13,11 +13,6 @@ class Motor:
         self.phase_offset = c.phase_offsets[joint_name]
         self.frequency = c.frequencies[joint_name]
         self.max_force = c.max_forces[joint_name]
-        self.values = None
-        self.prepare_to_act()
-
-    def prepare_to_act(self):
-        self.values = self.amplitude*np.sin(self.phase_offset + self.frequency*np.linspace(0, 2*np.pi, c.num_iterations))
 
     def set_value(self, robot, desired_angle):
         pyrosim.Set_Motor_For_Joint(
