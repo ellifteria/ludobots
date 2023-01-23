@@ -36,7 +36,7 @@ class NEURAL_NETWORK:
             if self.neurons[neuron_name].Is_Sensor_Neuron():
                 self.neurons[neuron_name].Update_Sensor_Neuron()
             else:
-                self.neurons[neuron_name].Update_Hidden_Or_Motor_Neuron()
+                self.neurons[neuron_name].Update_Hidden_Or_Motor_Neuron(self.neurons, self.synapses)
 
     def Is_Motor_Neuron(self, neuron_name):
         return self.neurons[neuron_name].Is_Motor_Neuron()
