@@ -1,4 +1,5 @@
 import pyrosim_modded.pyrosim_modded as pyrosim
+import random
 
 def create_world():
     l = 1
@@ -41,26 +42,18 @@ def generate_brain():
     pyrosim.Send_Sensor_Neuron(name= '2', linkName="frontleg")
     pyrosim.Send_Motor_Neuron(name= '3', jointName='torso_backleg')
     pyrosim.Send_Motor_Neuron(name= '4', jointName='torso_frontleg')
-    pyrosim.Send_Synapse(
-        sourceNeuronName='0',
-        targetNeuronName='3',
-        weight=1.0
-    )
-    pyrosim.Send_Synapse(
-        sourceNeuronName='1',
-        targetNeuronName='3',
-        weight=1.0
-    )
-    pyrosim.Send_Synapse(
-        sourceNeuronName='0',
-        targetNeuronName='4',
-        weight=1.0
-    )
-    pyrosim.Send_Synapse(
-        sourceNeuronName='2',
-        targetNeuronName='4',
-        weight=1.0
-    )
+
+    sensor_neurons = (0,2)
+    motor_neurons = (3,4)
+
+    for i in range(sensor_neurons[0], sensor_neurons[1]+1):
+        for j in range(motor_neurons[0], motor_neurons[1]+1):
+            pyrosim.Send_Synapse(
+                sourceNeuronName=str(i),
+                targetNeuronName=str(j),
+                weight=2*random.random()-1
+            )
+
     pyrosim.End()    
 
 def create_robot():
