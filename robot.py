@@ -29,20 +29,27 @@ class Robot:
         self.nn = NEURAL_NETWORK("brain.nndf")
 
     def sense(self, iteration):
-        for sensor in self.sensors:
-            self.sensors[sensor].get_value(iteration)
+        for sensor_name in self.sensors:
+            self.sensors[sensor_name].get_value(iteration)
 
     def act(self, iteration):
-        for motor in self.motors:
-            self.motors[motor].set_value(self, iteration)
+        for neuron_name in self.nn.Get_Neuron_Names():
+            if self.nn.Is_Motor_Neuron(neuron_name):
+                print(neuron_name)
+                joint_name = self.nn.Get_Motor_Neuron_Joint(neuron_name)
+                print(joint_name)
+                desired_angle = self.nn.Get_Value_Of(neuron_name)
+                print(desired_angle)
+        for motor_name in self.motors:
+            self.motors[motor_name].set_value(self, iteration)
 
     def think(self):
         self.nn.Update()
         self.nn.Print()
 
     def save_data(self):
-        for sensor in self.sensors:
-            self.sensors[sensor].save_values()
-        for motor in self.motors:
-            self.motors[motor].save_values()
+        for sensor_name in self.sensors:
+            self.sensors[sensor_name].save_values()
+        for motor_name in self.motors:
+            self.motors[motor_name].save_values()
 

@@ -2,4 +2,6 @@
     <neuron name = "0" type = "sensor" linkName = "torso" />
     <neuron name = "1" type = "sensor" linkName = "backleg" />
     <neuron name = "2" type = "sensor" linkName = "frontleg" />
+    <neuron name = "3" type = "motor"  jointName = "torso_backleg" />
+    <neuron name = "4" type = "motor"  jointName = "torso_frontleg" />
 </neuralNetwork>
