@@ -5,4 +5,7 @@
     <neuron name = "3" type = "motor"  jointName = "torso_backleg" />
     <neuron name = "4" type = "motor"  jointName = "torso_frontleg" />
     <synapse sourceNeuronName = "0" targetNeuronName = "3" weight = "1.0" />
+    <synapse sourceNeuronName = "1" targetNeuronName = "3" weight = "1.0" />
+    <synapse sourceNeuronName = "0" targetNeuronName = "4" weight = "1.0" />
+    <synapse sourceNeuronName = "2" targetNeuronName = "4" weight = "1.0" />
 </neuralNetwork>

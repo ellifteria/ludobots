@@ -7,6 +7,6 @@ phase_offsets = {'torso_frontleg': 0, 'torso_backleg': 0}
 
 frequencies = {'torso_frontleg': 5, 'torso_backleg': 10}
 
-max_forces = {'torso_frontleg': 15, 'torso_backleg': 15}
+max_forces = {'torso_frontleg': 25, 'torso_backleg': 25}
 
-sleep_time = 1/60
+sleep_time = 0.01/60
