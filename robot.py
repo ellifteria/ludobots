@@ -43,9 +43,20 @@ class Robot:
         self.nn.Update()
         self.nn.Print()
 
-    def save_data(self):
+    def save_sensor_motor_data(self):
         for sensor_name in self.sensors:
             self.sensors[sensor_name].save_values()
         for motor_name in self.motors:
             self.motors[motor_name].save_values()
+
+    def get_fitness(self) -> None:
+        link_0_state = pblt.getLinkState(self.id, 0)
+        link_0_pos = link_0_state[0]
+        link_0_x = link_0_pos[0]
+        self.save_fitness(link_0_x)
+
+    def save_fitness(self, fitness) -> None:
+        with open("./data/robot_fitness.txt", 'w') as f:
+            f.write(str(fitness))
+            f.close()
 

@@ -25,5 +25,8 @@ class Simulation:
             self.robot.think()
             time.sleep(c.sleep_time)
 
+    def get_fitness(self) -> None:
+        self.robot.get_fitness()
+
     def __del__(self):
         pblt.disconnect()

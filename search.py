@@ -1,10 +1,14 @@
 import os
 
 from simulation import Simulation
+from hillclimber import HillClimber
 
-for i in range(5):
-    os.system("python generate.py")
+hc = HillClimber()
+hc.evolve()
 
-    simulation = Simulation()
-    simulation.run()
-    del simulation
+# for i in range(5):
+#     os.system("python generate.py")
+
+#     simulation = Simulation()
+#     simulation.run()
+#     del simulation
