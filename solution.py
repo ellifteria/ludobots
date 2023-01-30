@@ -7,11 +7,11 @@ class Solution:
     def __init__(self, network_shape = [3,2]) -> None:
         self.weights = -1+2*np.random.rand(*network_shape)
 
-    def evaluate(self) -> None:
+    def evaluate(self, pybullet_method = "DIRECT") -> None:
         self.create_world()
         self.generate_body()
         self.generate_brain()
-        os.system("python simulate.py")
+        os.system("python simulate.py {}".format(pybullet_method))
         self.fitness = self.read_fitness()
 
     def read_fitness(self) -> float:

@@ -6,8 +6,13 @@ import time
 
 class Simulation:
 
-    def __init__(self):
-        self.physics_client = pblt.connect(pblt.GUI)
+    def __init__(self, pybullet_method):
+        if pybullet_method == "DIRECT":
+            self.physics_client = pblt.connect(pblt.DIRECT)
+        elif pybullet_method == "GUI":
+            self.physics_client = pblt.connect(pblt.GUI)
+        else:
+            raise ValueError("Valid pybullet connection method required")
 
         pblt.setAdditionalSearchPath(pybullet_data.getDataPath())
 
