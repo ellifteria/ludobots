@@ -7,9 +7,10 @@ import time
 class Simulation:
 
     def __init__(self, pybullet_method):
-        if pybullet_method == "DIRECT":
+        self.pblt_mthd = pybullet_method
+        if self.pblt_mthd == "DIRECT":
             self.physics_client = pblt.connect(pblt.DIRECT)
-        elif pybullet_method == "GUI":
+        elif self.pblt_mthd == "GUI":
             self.physics_client = pblt.connect(pblt.GUI)
         else:
             raise ValueError("Valid pybullet connection method required")
@@ -28,7 +29,8 @@ class Simulation:
             self.robot.sense(iteration)
             self.robot.act(iteration)
             self.robot.think()
-            time.sleep(c.sleep_time)
+            if self.pblt_mthd != "DIRECT":
+                time.sleep(c.sleep_time)
 
     def get_fitness(self) -> None:
         self.robot.get_fitness()
