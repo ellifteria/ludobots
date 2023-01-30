@@ -41,7 +41,7 @@ class Robot:
 
     def think(self):
         self.nn.Update()
-        self.nn.Print()
+        # self.nn.Print()
 
     def save_sensor_motor_data(self):
         for sensor_name in self.sensors:

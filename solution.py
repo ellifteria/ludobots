@@ -12,6 +12,21 @@ class Solution:
         self.generate_body()
         self.generate_brain()
         os.system("python simulate.py")
+        self.fitness = self.read_fitness()
+
+    def read_fitness(self) -> float:
+        with open("./data/robot_fitness.txt", 'r') as f:
+            fitness = f.read()
+            f.close()
+        return float(fitness)
+
+    def mutate(self) -> None:
+        row_to_mutate = np.random.randint(1, self.weights.shape[0])
+        col_to_mutate = np.random.randint(1, self.weights.shape[1])
+        new_neuron_value = -1+2*np.random.rand()
+        self.weights[row_to_mutate, col_to_mutate] = new_neuron_value
+
+
 
     def create_world(self) -> None:
         l = 1
