@@ -14,3 +14,7 @@ sleep_time = 0.0001/6000
 num_generations = 10
 
 population_size = 10
+
+num_sensor_neurons = 3
+
+num_motor_neurons = 2

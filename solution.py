@@ -2,18 +2,20 @@ import numpy as np
 import pyrosim_modded.pyrosim_modded as pyrosim
 import os
 import time
+import constants as Cnsts
 
 class Solution:
     
-    def __init__(self, network_shape = [3,2], solution_id = 0) -> None:
+    def __init__(self, solution_id = 0) -> None:
+        self.network_shape = [Cnsts.num_sensor_neurons, Cnsts.num_motor_neurons]
         self.solution_id = solution_id
-        self.weights = -1+2*np.random.rand(*network_shape)
+        self.weights = -1+2*np.random.rand(*self.network_shape)
 
     def start_simulation(self, pybullet_method = "DIRECT") -> None:
         self.create_world()
         self.generate_body()
         self.generate_brain()
-        os.system("python simulate.py {} {} &".format(pybullet_method, self.solution_id))
+        os.system("python simulate.py {} {} 2&>1 &".format(pybullet_method, self.solution_id))
 
     def wait_for_simulation_to_end(self) -> None:
         fitness_file_name = "./data/robot/robot_fitness{}.txt".format(self.solution_id)
@@ -73,9 +75,9 @@ class Solution:
         pyrosim.Send_Motor_Neuron(name= '3', jointName='torso_backleg')
         pyrosim.Send_Motor_Neuron(name= '4', jointName='torso_frontleg')
 
-        num_sensor_neurons = 2
-        num_motor_neurons = 3
-        first_motor_neurons = 3
+        num_sensor_neurons = self.network_shape[0]
+        num_motor_neurons = self.network_shape[1]
+        first_motor_neurons = num_sensor_neurons + 1
 
         for row in range(num_motor_neurons):
             for col in range(num_sensor_neurons):
