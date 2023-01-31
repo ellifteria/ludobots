@@ -9,20 +9,20 @@ class Solution:
         self.solution_id = solution_id
         self.weights = -1+2*np.random.rand(*network_shape)
 
-    def evaluate(self, pybullet_method = "DIRECT") -> None:
+    def start_simulation(self, pybullet_method = "DIRECT") -> None:
         self.create_world()
         self.generate_body()
         self.generate_brain()
         os.system("python simulate.py {} {} &".format(pybullet_method, self.solution_id))
-        self.fitness = self.read_fitness()
 
-    def read_fitness(self) -> float:
-        fitness_file_name = "./data/robot_fitness{}.txt".format(self.solution_id)
+    def wait_for_simulation_to_end(self) -> float:
+        fitness_file_name = "./data/robot/robot_fitness{}.txt".format(self.solution_id)
         while not os.path.exists(fitness_file_name):
             time.sleep(0.01)
         with open(fitness_file_name, 'r') as f:
             fitness = f.read()
             f.close()
+        os.system("rm {}".format(fitness_file_name))
         return float(fitness)
 
     def mutate(self) -> None:
@@ -40,7 +40,7 @@ class Solution:
         y = 2
         z = h/2
 
-        pyrosim.Start_SDF("box.sdf")
+        pyrosim.Start_SDF("./data/world/box.sdf")
 
         pyrosim.Send_Cube(name="box", pos=[x, y, z], size=[l, w, h])
 
@@ -51,7 +51,7 @@ class Solution:
         w = 1
         h = 1
 
-        pyrosim.Start_URDF("body.urdf")
+        pyrosim.Start_URDF("./data/robot/body.urdf")
 
         pyrosim.Send_Cube(name="torso", pos=[0, 0, 1.5], size=[l, w, h])
 
@@ -66,7 +66,7 @@ class Solution:
         pyrosim.End()
 
     def generate_brain(self) -> None:
-        pyrosim.Start_NeuralNetwork("brain{}.nndf".format(self.solution_id))
+        pyrosim.Start_NeuralNetwork("./data/robot/brain{}.nndf".format(self.solution_id))
         pyrosim.Send_Sensor_Neuron(name= '0', linkName="torso")
         pyrosim.Send_Sensor_Neuron(name= '1', linkName="backleg")
         pyrosim.Send_Sensor_Neuron(name= '2', linkName="frontleg")
