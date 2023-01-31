@@ -6,6 +6,8 @@ from parallel_hillclimber import ParallelHillClimber
 phc = ParallelHillClimber()
 phc.evolve()
 
+exit()
+
 # for i in range(5):
 #     os.system("python generate.py")
 

@@ -13,4 +13,4 @@ sleep_time = 0.0001/6000
 
 num_generations = 10
 
-population_size = 2
+population_size = 10

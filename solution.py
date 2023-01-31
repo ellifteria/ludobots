@@ -15,15 +15,15 @@ class Solution:
         self.generate_brain()
         os.system("python simulate.py {} {} &".format(pybullet_method, self.solution_id))
 
-    def wait_for_simulation_to_end(self) -> float:
+    def wait_for_simulation_to_end(self) -> None:
         fitness_file_name = "./data/robot/robot_fitness{}.txt".format(self.solution_id)
         while not os.path.exists(fitness_file_name):
             time.sleep(0.01)
         with open(fitness_file_name, 'r') as f:
             fitness = f.read()
+            self.fitness = float(fitness)
             f.close()
         os.system("rm {}".format(fitness_file_name))
-        return float(fitness)
 
     def mutate(self) -> None:
         row_to_mutate = np.random.randint(1, self.weights.shape[0])

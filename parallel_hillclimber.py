@@ -15,41 +15,59 @@ class ParallelHillClimber:
             self.next_available_id += 1
 
     def evolve(self) -> None:
-        for parent_key in self.parents:
-            parent = self.parents[parent_key]
-            parent.start_simulation()
-        
-        for parent_key in self.parents:
-            parent = self.parents[parent_key]
-            print("\n\n" + str(parent.wait_for_simulation_to_end()))
+        self.evaluate(self.parents)
 
         for i in range(Cnsts.num_generations):
             self.evolve_for_one_generation()
         
-        for parent_key in self.parents:
-            parent = self.parents[parent_key]
-            parent.start_simulation("GUI")
+        self.show_best()
+
+    def evaluate(self, solutions) -> None:
+        for key in solutions:
+            solution = solutions[key]
+            solution.start_simulation()
+        
+        for key in solutions:
+            solution = solutions[key]
+            solution.wait_for_simulation_to_end()
     
     def evolve_for_one_generation(self):
         self.spawn()
         self.mutate()
-        self.child.evaluate("DIRECT")
+        self.evaluate(self.children)
+        self.print()
         self.select()
 
     def spawn(self) -> None:
         self.children = {}
         for parent_key in self.parents:
             parent = self.parents[parent_key]
-            self.children[parent] = copy.deepcopy(parent)
+            self.children[parent_key] = copy.deepcopy(parent)
 
     def mutate(self) -> None:
-        for child_key in self.parents:
-            child = self.parents[child_key]
+        for child_key in self.children:
+            child = self.children[child_key]
             child.mutate()
 
-    def evaluate(self, solutions) -> None:
+    def print(self) -> None:
+        for key in self.parents:
+            parent = self.parents[key]
+            child = self.children[key]
+            print("\np: {} \t\t c: {}\n".format(parent.fitness, child.fitness))
 
     def select(self) -> None:
-        print("\n{} \t\t {}\n".format(self.parent.fitness, self.child.fitness))
-        if self.parent.fitness > self.child.fitness:
-            self.parent = self.child
+        for key in self.parents:
+            parent = self.parents[key]
+            child = self.children[key]
+            if parent.fitness > child.fitness:
+                self.parents[key] = child
+
+    def show_best(self) -> None:
+        top_key = 0
+        for key in self.parents:
+            parent = self.parents[key]
+            current_best = self.parents[top_key]
+            if parent.fitness < current_best.fitness:
+                top_key = key
+        print(self.parents[top_key].fitness)
+        self.parents[top_key].start_simulation("GUI")
