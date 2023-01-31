@@ -9,17 +9,14 @@ class Motor:
 
     def __init__(self, joint_name):
         self.joint_name = joint_name
-        self.amplitude = c.amplitudes[joint_name]
-        self.phase_offset = c.phase_offsets[joint_name]
-        self.frequency = c.frequencies[joint_name]
-        self.max_force = c.max_forces[joint_name]
+        self.max_force = 25
 
     def set_value(self, robot, desired_angle):
         pyrosim.Set_Motor_For_Joint(
                 bodyIndex= robot.id,
                 jointName= self.joint_name,
                 controlMode= pblt.POSITION_CONTROL,
-                targetPosition= desired_angle,
+                targetPosition= desired_angle * c.motorJointRange,
                 maxForce= self.max_force
             )
     

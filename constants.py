@@ -15,6 +15,8 @@ num_generations = 10
 
 population_size = 10
 
-num_sensor_neurons = 3
+num_sensor_neurons = 9
 
-num_motor_neurons = 2
+num_motor_neurons = 5
+
+motorJointRange = .2
