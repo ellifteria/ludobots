@@ -4,16 +4,22 @@ from motor import Motor
 import pyrosim_modded.pyrosim_modded as pyrosim
 from pyrosim_modded.neuralNetwork import NEURAL_NETWORK
 
+import os
+
 class Robot:
 
-    def __init__(self):
+    def __init__(self, solution_id):
         self.id = pblt.loadURDF("body.urdf")
+
+        self.solution_id = solution_id
 
         pyrosim.Prepare_To_Simulate(self.id)
 
         self.prepare_to_sense()
         self.prepare_to_act()
         self.prepare_to_think()
+
+        os.system("rm brain{}.nndf".format(self.solution_id))
 
     def prepare_to_sense(self):
         self.sensors = {}
@@ -26,7 +32,7 @@ class Robot:
             self.motors[joint_name] = Motor(joint_name)
 
     def prepare_to_think(self):
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        self.nn = NEURAL_NETWORK("brain{}.nndf".format(self.solution_id))
 
     def sense(self, iteration):
         for sensor_name in self.sensors:
@@ -56,7 +62,8 @@ class Robot:
         self.save_fitness(link_0_x)
 
     def save_fitness(self, fitness) -> None:
-        with open("./data/robot_fitness.txt", 'w') as f:
+        with open("./data/tmp_fitness{}.txt".format(self.solution_id), 'w') as f:
             f.write(str(fitness))
             f.close()
+        os.system("mv tmp_fitness{}.txt robot_fitness{}.txt".format(self.solution_id, self.solution_id))
 

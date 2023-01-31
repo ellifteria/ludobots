@@ -1,10 +1,10 @@
 import os
 
 from simulation import Simulation
-from hillclimber import HillClimber
+from parallel_hillclimber import ParallelHillClimber
 
-hc = HillClimber()
-hc.evolve()
+phc = ParallelHillClimber()
+phc.evolve()
 
 # for i in range(5):
 #     os.system("python generate.py")

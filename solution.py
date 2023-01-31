@@ -1,21 +1,26 @@
 import numpy as np
 import pyrosim_modded.pyrosim_modded as pyrosim
 import os
+import time
 
 class Solution:
     
-    def __init__(self, network_shape = [3,2]) -> None:
+    def __init__(self, network_shape = [3,2], solution_id = 0) -> None:
+        self.solution_id = solution_id
         self.weights = -1+2*np.random.rand(*network_shape)
 
     def evaluate(self, pybullet_method = "DIRECT") -> None:
         self.create_world()
         self.generate_body()
         self.generate_brain()
-        os.system("python simulate.py {}".format(pybullet_method))
+        os.system("python simulate.py {} {} &".format(pybullet_method, self.solution_id))
         self.fitness = self.read_fitness()
 
     def read_fitness(self) -> float:
-        with open("./data/robot_fitness.txt", 'r') as f:
+        fitness_file_name = "./data/robot_fitness{}.txt".format(self.solution_id)
+        while not os.path.exists(fitness_file_name):
+            time.sleep(0.01)
+        with open(fitness_file_name, 'r') as f:
             fitness = f.read()
             f.close()
         return float(fitness)
@@ -25,8 +30,6 @@ class Solution:
         col_to_mutate = np.random.randint(1, self.weights.shape[1])
         new_neuron_value = -1+2*np.random.rand()
         self.weights[row_to_mutate, col_to_mutate] = new_neuron_value
-
-
 
     def create_world(self) -> None:
         l = 1
@@ -63,7 +66,7 @@ class Solution:
         pyrosim.End()
 
     def generate_brain(self) -> None:
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Start_NeuralNetwork("brain{}.nndf".format(self.solution_id))
         pyrosim.Send_Sensor_Neuron(name= '0', linkName="torso")
         pyrosim.Send_Sensor_Neuron(name= '1', linkName="backleg")
         pyrosim.Send_Sensor_Neuron(name= '2', linkName="frontleg")

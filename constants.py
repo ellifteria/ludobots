@@ -12,3 +12,5 @@ max_forces = {'torso_frontleg': 25, 'torso_backleg': 25}
 sleep_time = 0.0001/6000
 
 num_generations = 10
+
+population_size = 2
