@@ -3,6 +3,7 @@ from sensor import Sensor
 from motor import Motor
 import pyrosim_modded.pyrosim_modded as pyrosim
 from pyrosim_modded.neuralNetwork import NEURAL_NETWORK
+import time
 
 import os
 
@@ -56,14 +57,16 @@ class Robot:
             self.motors[motor_name].save_values()
 
     def get_fitness(self) -> None:
-        link_0_state = pblt.getLinkState(self.id, 0)
-        link_0_pos = link_0_state[0]
-        link_0_x = link_0_pos[0]
+        base_pos_orientation = pblt.getBasePositionAndOrientation(self.id)
+        base_pos = base_pos_orientation[0]
+        link_0_x = base_pos[0]
         self.save_fitness(link_0_x)
 
     def save_fitness(self, fitness) -> None:
+        time.sleep(0.02)
         with open("./data/robot/tmp_fitness{}.txt".format(self.solution_id), 'w') as f:
             f.write(str(fitness))
+            time.sleep(0.02)
             f.close()
         os.system("mv ./data/robot/tmp_fitness{}.txt ./data/robot/robot_fitness{}.txt".format(self.solution_id, self.solution_id))
 

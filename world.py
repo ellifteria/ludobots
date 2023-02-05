@@ -5,4 +5,4 @@ class World:
     def __init__(self):
         self.plane_id = pblt.loadURDF("plane.urdf")
 
-        pblt.loadSDF("./data/world/box.sdf")
+        # pblt.loadSDF("./data/world/box.sdf")

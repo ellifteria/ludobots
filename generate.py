@@ -1,5 +1,6 @@
 import pyrosim_modded.pyrosim_modded as pyrosim
 import random
+import time
 
 def create_world():
     l = 1
@@ -32,6 +33,8 @@ def generate_body():
     pyrosim.Send_Joint(name="torso_backleg", parent="torso", child="backleg", type="revolute", position=[0.5, 0, 1], axis=[0, 1, 0])
 
     pyrosim.Send_Cube(name="backleg", pos=[0.5, 0, -0.5], size=[l, w, h])
+
+    time.sleep(0.02)
 
     pyrosim.End()
 

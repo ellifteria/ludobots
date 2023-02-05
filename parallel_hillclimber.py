@@ -18,6 +18,8 @@ class ParallelHillClimber:
         self.evaluate(self.parents)
 
         for i in range(Cnsts.num_generations):
+            os.system("rm ./data/robot/robot_fitness*.txt")
+            os.system("rm ./data/robot/brain*.txt")
             self.evolve_for_one_generation()
         
         self.show_best()
