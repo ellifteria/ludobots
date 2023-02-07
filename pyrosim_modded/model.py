@@ -20,7 +20,10 @@ class MODEL:
 
         pose = str(self.pos[0]) + ' ' + str(self.pos[1]) + ' ' + str(self.pos[2])
 
-        f.write('    <pose>' + pose + ' 0 0 0 </pose>\n')
+        if len(self.pos) == 4 and self.pos[3] == 'static':
+             f.write('    <pose>' + pose + ' 0 0 0 </pose>\n        <static>true</static>\n')
+        else:
+            f.write('    <pose>' + pose + ' 0 0 0 </pose>\n')
 
     def Save_End_Tag(self,f):
 

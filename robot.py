@@ -10,7 +10,7 @@ import os
 class Robot:
 
     def __init__(self, solution_id):
-        self.id = pblt.loadURDF("./data/robot/body.urdf")
+        self.id = pblt.loadURDF("./data/robot/body{}.urdf".format(solution_id))
 
         self.solution_id = solution_id
 
@@ -59,8 +59,9 @@ class Robot:
     def get_fitness(self) -> None:
         base_pos_orientation = pblt.getBasePositionAndOrientation(self.id)
         base_pos = base_pos_orientation[0]
+        link_0_z = base_pos[2]
         link_0_x = base_pos[0]
-        self.save_fitness(link_0_x)
+        self.save_fitness((link_0_z-1)**2-link_0_x)
 
     def save_fitness(self, fitness) -> None:
         time.sleep(0.02)

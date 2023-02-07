@@ -1,5 +1,6 @@
 import os
 from solution import Solution
+import generate_terrain
 import constants as Cnsts
 import copy
 
@@ -8,6 +9,7 @@ class ParallelHillClimber:
     def __init__(self) -> None:
         os.system("rm ./data/robot/robot_fitness*.txt")
         os.system("rm ./data/robot/brain*.txt")
+        # generate_terrain.generate_terrain()
         self.parents = {}
         self.next_available_id = 0
         for i in range(Cnsts.population_size):
@@ -61,7 +63,7 @@ class ParallelHillClimber:
         for key in self.parents:
             parent = self.parents[key]
             child = self.children[key]
-            if parent.fitness > child.fitness:
+            if parent.fitness < child.fitness:
                 self.parents[key] = child
 
     def show_best(self) -> None:
@@ -69,7 +71,7 @@ class ParallelHillClimber:
         for key in self.parents:
             parent = self.parents[key]
             current_best = self.parents[top_key]
-            if parent.fitness < current_best.fitness:
+            if parent.fitness > current_best.fitness:
                 top_key = key
         print(self.parents[top_key].fitness)
         self.parents[top_key].start_simulation("GUI")
