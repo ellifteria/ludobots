@@ -27,7 +27,7 @@ class Simulation:
 
             pblt.stepSimulation()
             self.robot.sense(iteration)
-            self.robot.act(iteration)
+            self.robot.act()
             self.robot.think()
             if self.pblt_mthd != "DIRECT":
                 time.sleep(c.sleep_time)

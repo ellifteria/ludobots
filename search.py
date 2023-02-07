@@ -1,20 +1,22 @@
-import os
+import argparse
+from p_fae1 import P_FAE_1
+from f_fae1 import F_FAE_1
 
-from simulation import Simulation
-from parallel_hillclimber import ParallelHillClimber
-from pmcdga import PMCDGA
+parser = argparse.ArgumentParser(
+    prog = 'search.py',
+    description = 'Performs a search for an optimizied neural network weight set for a simulated robot using FAEry Algorithms')
+parser.add_argument('-m', '--method', choices=['p_fae_1', 'f_fae_1'], default='p_fae_1')
 
-# phc = ParallelHillClimber()
-# phc.evolve()
+args = parser.parse_args()
 
-pmcdga = PMCDGA()
-pmcdga.evolve()
+if args.method == 'p_fae_1':
+    evolutionary_algorithm = P_FAE_1()
+elif args.method == 'f_fae_1':
+    evolutionary_algorithm = F_FAE_1()
+else:
+    exit()
+
+
+evolutionary_algorithm.evolve()
 
 exit()
-
-# for i in range(5):
-#     os.system("python generate.py")
-
-#     simulation = Simulation()
-#     simulation.run()
-#     del simulation

@@ -1,20 +1,16 @@
 import os
-import random
 
 import numpy as np
 import merge_sort
 from solution import Solution
-import generate_terrain
 import constants as Cnsts
-import copy
 
-class PMCDGA:
+class F_FAE_1:
     
     def __init__(self) -> None:
         os.system("rm ./data/robot/robot_fitness*.txt")
         os.system("rm ./data/robot/brain*.nndf")
         os.system("rm ./data/robot/body*.urdf")
-        # generate_terrain.generate_terrain()
         self.parents = {}
         self.next_available_id = 0
 
@@ -61,19 +57,19 @@ class PMCDGA:
     def produce_children(self, generation):
         self.children = {}
         for parent1 in self.parents:
-            for child_num in range(self.number_of_children):
-                parent2 = random.choice(list(self.parents.keys()))
-                percent_parent1 = np.random.rand(*self.genome_shape)
-                percent_parent2 = 1 - percent_parent1
+            for parent2 in self.parents:
+                for child_num in range(self.number_of_children):
+                    percent_parent1 = np.random.rand(*self.genome_shape)
+                    percent_parent2 = 1 - percent_parent1
 
-                parent1_genome = self.parents[parent1].weights
-                parent2_genome = self.parents[parent2].weights
+                    parent1_genome = self.parents[parent1].weights
+                    parent2_genome = self.parents[parent2].weights
 
-                child_id = f"{generation+1:03}" + parent1[3:6] + parent2[3:6] + f"{child_num:03}"
+                    child_id = f"{generation+1:03}" + parent1[3:6] + parent2[3:6] + f"{child_num:03}"
 
-                child_genome = np.multiply(percent_parent1, parent1_genome) + np.multiply(percent_parent2, parent2_genome)
+                    child_genome = np.multiply(percent_parent1, parent1_genome) + np.multiply(percent_parent2, parent2_genome)
 
-                self.children[child_id] = Solution(child_id, child_genome)
+                    self.children[child_id] = Solution(child_id, child_genome)
 
 
     def mutate(self) -> None:

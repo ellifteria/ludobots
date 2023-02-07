@@ -72,19 +72,15 @@ class Solution:
 
         for dir1 in self.dirs_axis_1:
             for dir2 in self.dirs_axis_2:
+                sensor_neuron = '{}{}femur'.format(dir2, dir1)
 
-                # sensor_neuron1 = '{}{}tibia'.format(dir1, dir2)
-                sensor_neuron2 = '{}{}femur'.format(dir2, dir1)
-                # sensor_neurons[sensor_neuron1] = sensor_neuron_index
-                # sensor_neuron_index += 1
-                sensor_neurons[sensor_neuron2] = sensor_neuron_index
+                sensor_neurons[sensor_neuron] = sensor_neuron_index
                 sensor_neuron_index += 1
+
                 for index in range(len(self.body_parts) - 1):
-                    # motor_neuron1 = '' + self.body_parts[index].format(dir1, dir2) + '_' + self.body_parts[index + 1].format(dir1, dir2)
-                    motor_neuron2 = '' + self.body_parts[index].format(dir2, dir1) + '_' + self.body_parts[index + 1].format(dir2, dir1)
-                    # motor_neurons[motor_neuron1] = motor_neuron_index
-                    # motor_neuron_index += 1
-                    motor_neurons[motor_neuron2] = motor_neuron_index
+                    motor_neuron = '' + self.body_parts[index].format(dir2, dir1) + '_' + self.body_parts[index + 1].format(dir2, dir1)
+                    
+                    motor_neurons[motor_neuron] = motor_neuron_index
                     motor_neuron_index += 1
 
         sensor_neurons['torso'] = sensor_neuron_index
