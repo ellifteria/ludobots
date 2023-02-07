@@ -21,6 +21,7 @@ class Robot:
         self.prepare_to_think()
 
         os.system("rm ./data/robot/brain{}.nndf".format(self.solution_id))
+        os.system("rm ./data/robot/body{}.urdf".format(self.solution_id))
 
     def prepare_to_sense(self):
         self.sensors = {}
@@ -61,7 +62,7 @@ class Robot:
         base_pos = base_pos_orientation[0]
         link_0_z = base_pos[2]
         link_0_x = base_pos[0]
-        self.save_fitness((link_0_z-1)**2-link_0_x)
+        self.save_fitness(link_0_x)
 
     def save_fitness(self, fitness) -> None:
         time.sleep(0.02)

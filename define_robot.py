@@ -4,16 +4,16 @@ def define_robot(body_size: int, leg_size: int):
     pyrosim.Send_Cube(
         name="torso",
         pos=[0, 0, body_size],
-        size=[body_size,body_size, body_size])
+        size=[body_size,body_size, 0.5*body_size])
     
     # create_front_left_leg(body_size, leg_size)
     # create_front_right_leg(body_size, leg_size)
     # create_back_left_leg(body_size, leg_size)
     # create_back_right_leg(body_size, leg_size)
-    create_right_back_leg(body_size, leg_size)
-    create_right_front_leg(body_size, leg_size)
-    create_left_back_leg(body_size, leg_size)
-    create_left_front_leg(body_size, leg_size)
+    create_right_back_leg(body_size, 2*leg_size)
+    create_right_front_leg(body_size, 2*leg_size)
+    create_left_back_leg(body_size, 2*leg_size)
+    create_left_front_leg(body_size, 2*leg_size)
 
 def create_front_left_leg(body_size: int, leg_size: int):
 
@@ -207,18 +207,18 @@ def create_right_back_leg(body_size: int, leg_size: int):
         pos=[0.5*leg_size, 0, 0],
         size=[leg_size, .2*body_size, .2*body_size])
     
-    pyrosim.Send_Joint(
-        name="rightbackfemur_rightbacktibia",
-        parent="rightbackfemur",
-        child="rightbacktibia",
-        type="revolute",
-        position=[leg_size, 0, 0],
-        axis=[0, 1, 0])
+    # pyrosim.Send_Joint(
+    #     name="rightbackfemur_rightbacktibia",
+    #     parent="rightbackfemur",
+    #     child="rightbacktibia",
+    #     type="revolute",
+    #     position=[leg_size, 0, 0],
+    #     axis=[0, 1, 0])
     
-    pyrosim.Send_Cube(
-        name="rightbacktibia",
-        pos=[0, 0, -0.5*body_size],
-        size=[.4*body_size, .4*body_size, body_size])
+    # pyrosim.Send_Cube(
+    #     name="rightbacktibia",
+    #     pos=[0, 0, -0.5*body_size],
+    #     size=[.4*body_size, .4*body_size, body_size])
     
 def create_right_front_leg(body_size: int, leg_size: int):
 
@@ -248,18 +248,18 @@ def create_right_front_leg(body_size: int, leg_size: int):
         pos=[0.5*leg_size, 0, 0],
         size=[leg_size, .2*body_size, .2*body_size])
     
-    pyrosim.Send_Joint(
-        name="rightfrontfemur_rightfronttibia",
-        parent="rightfrontfemur",
-        child="rightfronttibia",
-        type="revolute",
-        position=[leg_size, 0, 0],
-        axis=[0, 1, 0])
+    # pyrosim.Send_Joint(
+    #     name="rightfrontfemur_rightfronttibia",
+    #     parent="rightfrontfemur",
+    #     child="rightfronttibia",
+    #     type="revolute",
+    #     position=[leg_size, 0, 0],
+    #     axis=[0, 1, 0])
     
-    pyrosim.Send_Cube(
-        name="rightfronttibia",
-        pos=[0, 0, -0.5*body_size],
-        size=[.4*body_size, .4*body_size, body_size])
+    # pyrosim.Send_Cube(
+    #     name="rightfronttibia",
+    #     pos=[0, 0, -0.5*body_size],
+    #     size=[.4*body_size, .4*body_size, body_size])
     
 def create_left_back_leg(body_size: int, leg_size: int):
 
@@ -289,18 +289,18 @@ def create_left_back_leg(body_size: int, leg_size: int):
         pos=[-0.5*leg_size, 0, 0],
         size=[leg_size, .2*body_size, .2*body_size])
     
-    pyrosim.Send_Joint(
-        name="leftbackfemur_leftbacktibia",
-        parent="leftbackfemur",
-        child="leftbacktibia",
-        type="revolute",
-        position=[-leg_size, 0, 0],
-        axis=[0, 1, 0])
+    # pyrosim.Send_Joint(
+    #     name="leftbackfemur_leftbacktibia",
+    #     parent="leftbackfemur",
+    #     child="leftbacktibia",
+    #     type="revolute",
+    #     position=[-leg_size, 0, 0],
+    #     axis=[0, 1, 0])
     
-    pyrosim.Send_Cube(
-        name="leftbacktibia",
-        pos=[0, 0, -0.5*body_size],
-        size=[.4*body_size, .4*body_size, body_size])
+    # pyrosim.Send_Cube(
+    #     name="leftbacktibia",
+    #     pos=[0, 0, -0.5*body_size],
+    #     size=[.4*body_size, .4*body_size, body_size])
     
 def create_left_front_leg(body_size: int, leg_size: int):
 
@@ -330,16 +330,19 @@ def create_left_front_leg(body_size: int, leg_size: int):
         pos=[-0.5*leg_size, 0, 0],
         size=[leg_size, .2*body_size, .2*body_size])
     
-    pyrosim.Send_Joint(
-        name="leftfrontfemur_leftfronttibia",
-        parent="leftfrontfemur",
-        child="leftfronttibia",
-        type="revolute",
-        position=[-leg_size, 0, 0],
-        axis=[0, 1, 0])
+    # pyrosim.Send_Joint(
+    #     name="leftfrontfemur_leftfronttibia",
+    #     parent="leftfrontfemur",
+    #     child="leftfronttibia",
+    #     type="revolute",
+    #     position=[-leg_size, 0, 0],
+    #     axis=[0, 1, 0])
     
-    pyrosim.Send_Cube(
-        name="leftfronttibia",
-        pos=[0, 0, -0.5*body_size],
-        size=[.4*body_size, .4*body_size, body_size])
+    # pyrosim.Send_Cube(
+    #     name="leftfronttibia",
+    #     pos=[0, 0, -0.5*body_size],
+    #     size=[.4*body_size, .4*body_size, body_size])
     
+pyrosim.Start_URDF("body.urdf")
+define_robot(body_size=1, leg_size=1)
+pyrosim.End()

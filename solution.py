@@ -8,17 +8,23 @@ import warnings
 
 class Solution:
     
-    def __init__(self, solution_id = 0) -> None:
+    def __init__(self, solution_id = 0, genome = None) -> None:
         self.dirs_axis_1 = ['front', 'back']
         self.dirs_axis_2 = ['left', 'right']
 
-        self.body_parts = ['torso', '{}{}coxa', '{}{}femur', '{}{}tibia']
+        self.body_parts = ['torso', '{}{}coxa', '{}{}femur']
 
         num_sensor_neurons =  (len(self.dirs_axis_1) + len(self.dirs_axis_2)) + 1
         num_motor_neurons = (len(self.body_parts) - 1)  * (len(self.dirs_axis_1) + len(self.dirs_axis_2))
         self.network_shape = [num_sensor_neurons, num_motor_neurons]
         self.solution_id = solution_id
-        self.weights = -5+10*np.random.rand(*self.network_shape)
+        if genome is None:
+            self.weights = -5+10*np.random.rand(*self.network_shape)
+        else:
+            self.weights = genome
+
+        self.mutation_rate = Cnsts.mutation_rate
+        self.mutation_magnitude = Cnsts.mutation_magnitude
 
     def start_simulation(self, pybullet_method = "DIRECT") -> None:
         self.generate_body()
@@ -44,10 +50,11 @@ class Solution:
         os.system("rm {}".format(fitness_file_name))
 
     def mutate(self) -> None:
-        row_to_mutate = np.random.randint(1, self.weights.shape[0])
-        col_to_mutate = np.random.randint(1, self.weights.shape[1])
-        new_neuron_value = -5+10*np.random.rand()
-        self.weights[row_to_mutate, col_to_mutate] = new_neuron_value
+        if np.random.rand() < self.mutation_rate:
+            row_to_mutate = np.random.randint(1, self.weights.shape[0])
+            col_to_mutate = np.random.randint(1, self.weights.shape[1])
+            new_neuron_value = self.mutation_magnitude * (-0.5 + np.random.rand())
+            self.weights[row_to_mutate, col_to_mutate] = new_neuron_value
 
     def generate_body(self) -> None:
         pyrosim.Start_URDF("./data/robot/body{}.urdf".format(self.solution_id))
@@ -67,7 +74,7 @@ class Solution:
             for dir2 in self.dirs_axis_2:
 
                 # sensor_neuron1 = '{}{}tibia'.format(dir1, dir2)
-                sensor_neuron2 = '{}{}tibia'.format(dir2, dir1)
+                sensor_neuron2 = '{}{}femur'.format(dir2, dir1)
                 # sensor_neurons[sensor_neuron1] = sensor_neuron_index
                 # sensor_neuron_index += 1
                 sensor_neurons[sensor_neuron2] = sensor_neuron_index

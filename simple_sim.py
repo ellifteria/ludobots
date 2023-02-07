@@ -17,7 +17,7 @@ pblt.setGravity(0,0,-9.8)
 
 plane_id = pblt.loadURDF("plane.urdf")
 
-pblt.loadSDF("terrain.sdf")
+# pblt.loadSDF("terrain.sdf")
 
 robot_id = pblt.loadURDF("body.urdf")
 

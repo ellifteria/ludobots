@@ -9,11 +9,11 @@ frequencies = {'torso_frontleg': 5, 'torso_backleg': 10}
 
 max_forces = {'torso_frontleg': 25, 'torso_backleg': 25}
 
-sleep_time = 0.0001/6000000
+sleep_time = 0
 
-num_generations = 20
+num_generations = 12
 
-population_size = 30
+# population_size = 10
 
 num_sensor_neurons = 9
 
@@ -22,3 +22,12 @@ num_motor_neurons = 5
 motorJointRange = .2
 
 default_fitness = 100
+
+
+mutation_rate = 0.75
+mutation_magnitude = 2
+
+generation_size = 12
+number_of_children = 5
+family_filter_size = 3
+random_members = 3
