@@ -11,7 +11,7 @@ max_forces = {'torso_frontleg': 25, 'torso_backleg': 25}
 
 sleep_time = 0
 
-num_generations = 12
+num_generations = 15
 
 # population_size = 10
 
@@ -31,3 +31,6 @@ generation_size = 12
 number_of_children = 5
 family_filter_size = 3
 random_members = 3
+
+CPG_magnitude = 2
+CPG_period_modifier = 2*np.pi

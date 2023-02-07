@@ -1,9 +1,11 @@
+import numpy as np
 import pybullet as pblt
 from sensor import Sensor
 from motor import Motor
 import pyrosim_modded.pyrosim_modded as pyrosim
 from pyrosim_modded.neuralNetwork import NEURAL_NETWORK
 import time
+import constants as Cnsts
 
 import os
 
@@ -39,6 +41,8 @@ class Robot:
     def sense(self, iteration):
         for sensor_name in self.sensors:
             self.sensors[sensor_name].get_value(iteration)
+        torso_index = max([int(x[1:]) for x in self.nn.Get_Neuron_Names() if 's' in x])
+        self.nn.neurons['s{}'.format(torso_index)].Set_Value(Cnsts.CPG_magnitude * np.sin(Cnsts.CPG_period_modifier * iteration))
 
     def act(self, iteration):
         for neuron_name in self.nn.Get_Neuron_Names():
@@ -60,9 +64,10 @@ class Robot:
     def get_fitness(self) -> None:
         base_pos_orientation = pblt.getBasePositionAndOrientation(self.id)
         base_pos = base_pos_orientation[0]
-        link_0_z = base_pos[2]
         link_0_x = base_pos[0]
-        self.save_fitness(link_0_x)
+        link_0_y = base_pos[1]
+        link_0_z = base_pos[2]
+        self.save_fitness(link_0_y)
 
     def save_fitness(self, fitness) -> None:
         time.sleep(0.02)
