@@ -16,7 +16,7 @@ class Motor:
                 bodyIndex= robot.id,
                 jointName= self.joint_name,
                 controlMode= pblt.POSITION_CONTROL,
-                targetPosition= desired_angle * c.motorJointRange,
+                targetPosition= desired_angle * c.motor_joint_range,
                 maxForce= self.max_force
             )
     

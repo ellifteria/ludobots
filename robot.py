@@ -44,7 +44,7 @@ class Robot:
         torso_index = max([int(x[1:]) for x in self.nn.Get_Neuron_Names() if 's' in x])
         self.nn.neurons['s{}'.format(torso_index)].Set_Value(Cnsts.CPG_magnitude * np.sin(Cnsts.CPG_period_modifier * iteration))
 
-    def act(self, iteration):
+    def act(self):
         for neuron_name in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuron_name):
                 joint_name = self.nn.Get_Motor_Neuron_Joint(neuron_name)
@@ -53,7 +53,6 @@ class Robot:
 
     def think(self):
         self.nn.Update()
-        # self.nn.Print()
 
     def save_sensor_motor_data(self):
         for sensor_name in self.sensors:
