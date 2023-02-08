@@ -2,6 +2,8 @@
 
 Family Aware EvolutionaRY (FAERY) algorithms provide a method of optimizing phenotypic fitness through a genetic algorithm while maintaining diversity within the population.
 
+To run, clone and run `python search.py` in the terminal.
+
 ## Motivation
 
 Local optima are frequently problems in optimization searches since there is often no way to determine if a given configuration at an optimum reaches a local or global optimum.
