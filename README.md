@@ -21,7 +21,7 @@ Two FAERY algorithms were used to optimize the design of a simulated robot's neu
 
 For the optimization, a simple quadrupedal robot was designed.
 
-![quadruped image]()
+![quadruped image](/media/quadruped.png?raw=true)
 
 The robot's neural network consisted of a set of sensor neurons on the feet of the robot and a set of motor neurons at each joint telling the motor to which angle to turn.
 Additionally, a sinusoidally modulated sensation was input to the robot by overwriting the robot's torso's sensor neurons reading with a sine function, modelling the working of central pattern generators [CPGs](https://en.wikipedia.org/wiki/Central_pattern_generator) in biological nervous systems.
@@ -37,14 +37,12 @@ There is an equally likely chance of the match being with any member of the gene
 
 As a gene averaging algorithm, ludoFAE1 produces child genomes by averaging the genomes of the parents in a match.
 The average is computed as a randomly weighted average between the two parent genomes.
-The formula for a child gene can be written as
-$$g_{c,i} = p_i * g_{p1,i} + (1-p_i) * g_{p2, i}$$
-where
+The formula for a child gene can be written as `gci = pi * gp1i + (1-pi) * gp2i` where
 
-* $g_{c,i}$ is gene $i$ in the child genome,
-* $g_{p1,i}$ is gene $i$ in the first parent's genome,
-* $g_{p2,i}$ is gene $i$ in the second parent's genome, and
-* $p_i$ is the randomly chosen weighting for gene $i$.
+* `gci` is gene `i` in the child genome,
+* `gp1` is gene `i` in the first parent's genome,
+* `gp2i` is gene `i` in the second parent's genome, and
+* `pi` is the randomly chosen weighting for gene `i`.
 
 After this gene averaging, ludoFAE1 mutated a single random gene by a random amount as directed by user-provided mutation rate and mutation magnitude specifications.
 
@@ -58,7 +56,7 @@ Therefore, in ludoFAE2, every individual in a generation is mated with every oth
 
 Running ludoFAE1 and ludoFAE2 with the specifications found [here](/constants.py) demonstrated that both algorithms were capable of optimizing a simulated robot to achieve a desired goal.
 
-![ludoFAE2 optimization video]()
+[![ludoFAE2 optimization video](https://img.youtube.com/vi/oBoEBxVF9pE/0.jpg)](https://www.youtube.com/watch?v=oBoEBxVF9pE)
 
 The above video demonstrates the ludoFAE2 algorithm; the ludoFAE1 algorithm produced similar results.
 Statistical analysis would be required to evaluate which algorithm performs better.
