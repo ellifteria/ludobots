@@ -42,7 +42,7 @@ The average is computed as a randomly weighted average between the two parent ge
 The formula for a child gene can be written as `gci = pi * gp1i + (1-pi) * gp2i` where
 
 * `gci` is gene `i` in the child genome,
-* `gp1` is gene `i` in the first parent's genome,
+* `gp1i` is gene `i` in the first parent's genome,
 * `gp2i` is gene `i` in the second parent's genome, and
 * `pi` is the randomly chosen weighting for gene `i`.
 
