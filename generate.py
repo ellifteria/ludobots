@@ -1,13 +1,5 @@
 import pyrosim.pyrosim as pyrosim
 
-import fileinput
-
-def replace_txt(filename, txt_to_replace, new_txt):
-
-    with fileinput.FileInput(filename, inplace=True, backup='.bak') as file:
-        for line in file:
-            print(line.replace(txt_to_replace, new_txt), end='')
-
 def create_world():
     l = 1
     w = 1
@@ -41,9 +33,6 @@ def create_robot():
     pyrosim.Send_Cube(name="backleg", pos=[0, 0.5, -0.5], size=[l, w, h])
 
     pyrosim.End()
-
-    replace_txt("body.urdf", '<axis xyz="0 1 0"/>', '<axis xyz="1 0 0"/>')
-
 
 def main():
     create_world()
