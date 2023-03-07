@@ -39,4 +39,4 @@ if __name__ == "__main__":
     main()
     end_time = timer()
     elapsed_time = end_time - start_time
-    print('\n\nexecution time:', elapsed_time, 'seconds')
+    print('\n\nexecution time: ', elapsed_time, 'seconds')
